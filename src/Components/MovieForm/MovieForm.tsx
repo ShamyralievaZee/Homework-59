@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const MovieForm = () => {
+interface IMovieForm{
+  addNewMovie: (title:string) => void,
+}
+
+const MovieForm:React.FC<IMovieForm> = ({addNewMovie}) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = (event:React.FormEvent) => {
     event.preventDefault();
-  }
+    if(inputValue){
+      addNewMovie(inputValue);
+      setInputValue('');
+    }
+  };
+
+  useEffect(()=>{
+    console.log('MovieForm is rendered');
+  },[]);
 
   return (
       <form onSubmit={handleSubmit}>
