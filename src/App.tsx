@@ -1,11 +1,13 @@
-import './App.css'
+import React from 'react';
+import Movies from './Containers/Movies.tsx';
+import './app.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <p>Hello world</p>
-    </>
-  )
-}
+    <div className="main-container">
+      <Movies />
+    </div>
+  );
+};
 
-export default App
+export default App;
