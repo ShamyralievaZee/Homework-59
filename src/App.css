@@ -12,6 +12,16 @@ body {
   min-height: 100vh;
 }
 
+.change-button{
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+.change-button:hover{
+  background-color: #e8e8e8;
+}
+
 .main-container {
   min-width: 600px;
   padding: 20px;

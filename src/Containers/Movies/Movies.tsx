@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import MovieForm from '../Components/MovieForm/MovieForm.tsx';
-import MovieItem from '../Components/MovieItem/MovieItem.tsx';
+import MovieForm from '../../Components/MovieForm/MovieForm.tsx';
+import MovieItem from '../../Components/MovieItem/MovieItem.tsx';
 
 interface IMovies {
   id: number;
@@ -54,7 +54,7 @@ const Movies: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="main-container">
       <MovieForm addNewMovie={addMovie} />
       <h4 className='mb-4'>To Watch List:</h4>
       <div>
