@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-interface IMovie {
+interface IMovieItem {
   movie: { id: number; title: string };
   onUpdateMovie: (id: number, newTitle: string) => void;
   onDeleteMovie: (id: number) => void;
@@ -8,7 +8,7 @@ interface IMovie {
   onSetEditingId: (id: number | null) => void;
 }
 
-const MovieItem: React.FC<IMovie> = React.memo(({ movie, onDeleteMovie, isEditing }) => {
+const MovieItem: React.FC<IMovieItem> = React.memo(({ movie, onUpdateMovie, onDeleteMovie, isEditing, onSetEditingId }) => {
   const [editableTitle, setEditableTitle] = useState(movie.title);
 
   useEffect(() => {
@@ -18,11 +18,24 @@ const MovieItem: React.FC<IMovie> = React.memo(({ movie, onDeleteMovie, isEditin
     }
   }, [movie.title]);
 
+  const handleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditableTitle(e.target.value);
+  };
+
+  const handleBlur = () => {
+    if (editableTitle && editableTitle !== movie.title) {
+      onUpdateMovie(movie.id, editableTitle);
+    }
+    onSetEditingId(null);
+  };
+
   return (
     <li>
       <input
         type="text"
         value={editableTitle}
+        onChange={handleEdit}
+        onBlur={handleBlur}
         autoFocus={isEditing}
       />
       <button onClick={() => onDeleteMovie(movie.id)}>X</button>

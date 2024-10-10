@@ -1,20 +1,36 @@
-import MovieForm from '../Components/MovieForm/MovieForm.tsx';
 import React, { useEffect, useState } from 'react';
+import MovieForm from '../Components/MovieForm/MovieForm.tsx';
+import MovieItem from '../Components/MovieItem/MovieItem.tsx';
 
-interface Movie {
+interface IMovies {
   id: number;
   title: string;
 }
 
 const Movies: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>(() => {
+  const [movies, setMovies] = useState<IMovies[]>(() => {
     const savedMovies = localStorage.getItem('movies');
-    return savedMovies ? JSON.parse(savedMovies) : [];
+    try {
+      return savedMovies ? JSON.parse(savedMovies) : [];
+    } catch (error) {
+      console.error("Error parsing movies from localStorage:", error);
+      return [];
+    }
   });
 
+  const [editingId, setEditingId] = useState<number | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('movies', JSON.stringify(movies));
+  }, [movies]);
 
   const randomId = () => {
-    return movies.length > 0 ? Math.max(...movies.map(movie => movie.id)) + 1 : 1;
+    const existingIds = movies.map(movie => movie.id);
+    let newId = 1;
+    while (existingIds.includes(newId)) {
+      newId++;
+    }
+    return newId;
   };
 
   const addMovie = (title: string) => {
@@ -22,15 +38,38 @@ const Movies: React.FC = () => {
     setMovies((prevMovies) => [...prevMovies, newMovie]);
   };
 
+  const updateMovie = (id: number, newTitle: string) => {
+    setMovies((prevMovies) =>
+      prevMovies.map((movie) => (movie.id === id ? { ...movie, title: newTitle } : movie))
+    );
+    setEditingId(null);
+  };
+
+  const deleteMovie = (id: number) => {
+    setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));
+  };
+
   useEffect(() => {
-    localStorage.setItem('movies', JSON.stringify(movies));
-  }, [movies]);
+    console.log('Movies rendered');
+  }, []);
 
   return (
-    <>
-      <MovieForm addNewMovie={addMovie}/>
-      <h4>To Watch List:</h4>
-    </>
+    <div>
+      <MovieForm addNewMovie={addMovie} />
+      <h4 className='mb-4'>To Watch List:</h4>
+      <div>
+        {movies.map((movie) => (
+          <MovieItem
+            key={movie.id}
+            movie={movie}
+            onUpdateMovie={updateMovie}
+            onDeleteMovie={deleteMovie}
+            isEditing={editingId === movie.id}
+            onSetEditingId={setEditingId}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

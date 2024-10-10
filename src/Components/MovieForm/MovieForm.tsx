@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-interface IMovieForm{
-  addNewMovie: (title:string) => void,
+interface IMovieForm {
+  addNewMovie: (title: string) => void;
 }
 
 const MovieForm:React.FC<IMovieForm> = ({addNewMovie}) => {

@@ -24,13 +24,17 @@ form {
   justify-content: space-between;
   margin-bottom: 20px;
 }
+form input{
+  border: 1px solid #ddd;
+}
 
 input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 8px;
   margin-right: 20px;
+
 }
 
 button {
