@@ -34,6 +34,15 @@ body {
 .joke-container{
   width: 500px;
   text-align: center;
+  margin: 0 auto;
+}
+
+.joke-button{
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
 }
 
 form {
