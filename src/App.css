@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+
 }
 
 .change-button{
@@ -18,6 +19,7 @@ body {
   padding: 10px;
   margin-bottom: 30px;
 }
+
 .change-button:hover{
   background-color: #e8e8e8;
 }
@@ -27,6 +29,11 @@ body {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
+}
+
+.joke-container{
+  width: 500px;
+  text-align: center;
 }
 
 form {
